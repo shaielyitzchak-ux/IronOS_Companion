@@ -23,10 +23,8 @@ jobs:
 
       - name: Fix App Plugin Loader Issue
         run: |
-          # Patch app/build.gradle to remove or handle the legacy app_plugin_loader application if present
-          if grep -q "app_plugin_loader" android/app/build.gradle; then
-            sed -i '/app_plugin_loader/d' android/app/build.gradle
-          fi
+          # Patch build.gradle to handle legacy app_plugin_loader if present
+          find . -name "build.gradle" -exec sed -i '/app_plugin_loader/d' {} +
 
       - name: Get dependencies
         run: flutter pub get
